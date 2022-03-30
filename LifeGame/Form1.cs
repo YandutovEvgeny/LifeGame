@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LifeGame
 {
-    //TODO: Создать проект и добавить и настроить в неё dataGridView как в этом проекте
+    
     public partial class Form1 : Form
     {
         int N = 5;
@@ -18,13 +18,15 @@ namespace LifeGame
         public Form1()
         {
             InitializeComponent();
-            CreateGrid(N);
+            CreateGrid(N);  //Отображает таблицу в форме
             life = new Life();  //инициализация объекта класса
         }
         void CreateGrid(int n)
         {
+            //Создаём таблицу n на n элементов
             dataGridView1.ColumnCount = n;
             dataGridView1.RowCount = n;
+            //Хотим, чтобы таблица занимала всё возможное пространство по форме
             int width = dataGridView1.Width > dataGridView1.Height ? dataGridView1.Height : dataGridView1.Width;
             for (int i = 0; i < n; i++)
             {
@@ -40,6 +42,8 @@ namespace LifeGame
 
         private void Form1_Resize(object sender, EventArgs e)
         {
+            //Событие resize говорит нам, что когда мы будем изменять окно, таблица будет подстраиваться
+            //под форму
             CreateGrid(N);
         }
 
@@ -47,7 +51,8 @@ namespace LifeGame
         {
             int row = e.RowIndex;
             int col = e.ColumnIndex;
-            if(dataGridView1[col, row].Style.BackColor == Color.Black) //Если клетка была чёрной
+            //Примечание: в dataGridView1 нужно сначала указывать столбики, затем строки!
+            if (dataGridView1[col, row].Style.BackColor == Color.Black) //Если клетка была чёрной
                 dataGridView1[col, row].Style.BackColor = Color.White; //То красим в белую
             else
                 dataGridView1[col, row].Style.BackColor = Color.Black; //Иначе красим в чёрную
