@@ -12,7 +12,8 @@ namespace HomeWork
 {
     public partial class Form1 : Form
     {
-        //TODO: Создать проект, добавить и настроить в неё dataGridView
+        //TODO: Создать проект, добавить и настроить в неё dataGridView         //DONE
+        //TODO: При создании таблицы, ячейки закрашиваются рандомными цветами   //DONE
         int N = 5;
         public Form1()
         {
@@ -31,6 +32,28 @@ namespace HomeWork
                 dataGridView1.Rows[i].Height = w / n;
                 dataGridView1.Columns[i].Width = w / n;
             }
+            DyedGrid();
+        }
+        void DyedGrid()
+        {
+            Random random = new Random();
+            for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            {
+                for (int j = 0; j < dataGridView1.RowCount; j++)
+                {
+                    dataGridView1[i, j].Value = random.Next(1,6);
+                    switch(dataGridView1[i,j].Value)
+                    {
+                        case 1: dataGridView1[i, j].Style.BackColor = Color.Green; break;
+                        case 2: dataGridView1[i, j].Style.BackColor = Color.Yellow; break;
+                        case 3: dataGridView1[i, j].Style.BackColor = Color.Red; break;
+                        case 4: dataGridView1[i, j].Style.BackColor = Color.Blue; break;
+                        case 5: dataGridView1[i, j].Style.BackColor = Color.Orange; break;
+                    }
+                    dataGridView1[i, j].Value = null;
+                }
+            }
+
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
