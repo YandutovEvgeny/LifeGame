@@ -14,6 +14,7 @@ namespace HomeWork
     {
         //TODO: Создать проект, добавить и настроить в неё dataGridView         //DONE
         //TODO: При создании таблицы, ячейки закрашиваются рандомными цветами   //DONE
+        //TODO: Сделать игру
         int N = 5;
         public Form1()
         {
@@ -32,7 +33,6 @@ namespace HomeWork
                 dataGridView1.Rows[i].Height = w / n;
                 dataGridView1.Columns[i].Width = w / n;
             }
-            DyedGrid();
         }
         void DyedGrid()
         {
@@ -41,16 +41,14 @@ namespace HomeWork
             {
                 for (int j = 0; j < dataGridView1.RowCount; j++)
                 {
-                    dataGridView1[i, j].Value = random.Next(1,6);
+                    dataGridView1[i, j].Value = random.Next(1,4);
                     switch(dataGridView1[i,j].Value)
                     {
                         case 1: dataGridView1[i, j].Style.BackColor = Color.Green; break;
-                        case 2: dataGridView1[i, j].Style.BackColor = Color.Yellow; break;
-                        case 3: dataGridView1[i, j].Style.BackColor = Color.Red; break;
-                        case 4: dataGridView1[i, j].Style.BackColor = Color.Blue; break;
-                        case 5: dataGridView1[i, j].Style.BackColor = Color.Orange; break;
+                        case 2: dataGridView1[i, j].Style.BackColor = Color.Red; break;
+                        case 3: dataGridView1[i, j].Style.BackColor = Color.Blue; break;
                     }
-                    dataGridView1[i, j].Value = null;
+                    //dataGridView1[i, j].Value = null;
                 }
             }
 
@@ -67,5 +65,70 @@ namespace HomeWork
             //под форму
             CreateGrid(N);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DyedGrid();
+        }
+
+        void PoofCellGreen(int col, int row)
+        {
+            if (col < 0 || row < 0 || col > dataGridView1.ColumnCount - 1 || row > dataGridView1.RowCount - 1)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.White)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.Green)
+            {
+                dataGridView1[col, row].Style.BackColor = Color.White;
+            }
+            else return;
+            PoofCellGreen(col - 1, row);
+            PoofCellGreen(col, row - 1);
+            PoofCellGreen(col + 1, row);
+            PoofCellGreen(col, row + 1);
+        }
+        void PoofCellBlue(int col, int row)
+        {
+            if (col < 0 || row < 0 || col > dataGridView1.ColumnCount - 1 || row > dataGridView1.RowCount - 1)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.White)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.Blue)
+            {
+                dataGridView1[col, row].Style.BackColor = Color.White;
+            }
+            else return;
+            PoofCellBlue(col - 1, row);
+            PoofCellBlue(col, row - 1);
+            PoofCellBlue(col + 1, row);
+            PoofCellBlue(col, row + 1);
+        }
+        void PoofCellRed(int col, int row)
+        {
+            if (col < 0 || row < 0 || col > dataGridView1.ColumnCount - 1 || row > dataGridView1.RowCount - 1)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.White)
+                return;
+            if (dataGridView1[col, row].Style.BackColor == Color.Red)
+            {
+                dataGridView1[col, row].Style.BackColor = Color.White;
+            }
+            else return;
+            PoofCellRed(col - 1, row);
+            PoofCellRed(col, row - 1);
+            PoofCellRed(col + 1, row);
+            PoofCellRed(col, row + 1);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int col = e.ColumnIndex;
+            int row = e.RowIndex;
+            PoofCellGreen(col, row);
+            PoofCellBlue(col, row);
+            PoofCellRed(col, row);
+            dataGridView1.ClearSelection();
+        }
+        
     }
 }
