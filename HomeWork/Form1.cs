@@ -73,8 +73,8 @@ namespace HomeWork
         {
             DyedGrid();
             timer1.Enabled = true;
-            label1.Text = $"Количество шагов: {gameStep}";
-            label2.Text = $"Количество очков: {score}";
+            label1.Text = $"Количество шагов: {gameStep = 0}";
+            label2.Text = $"Количество очков: {score = 0}";
         }
 
         void PoofCell(int col, int row, Color color)
@@ -97,7 +97,7 @@ namespace HomeWork
             int col = e.ColumnIndex;
             int row = e.RowIndex;
             PoofCell(col, row, dataGridView1[col, row].Style.BackColor);
-            label1.Text = $"Количество шагов: {gameStep++ + 1}";
+            label1.Text = $"Количество шагов: {gameStep += 1}";
             label2.Text = $"Количество очков: {score += 20}";
             if(timer1.Enabled == false)
             {
@@ -113,7 +113,7 @@ namespace HomeWork
             for(int col = 0; col < dataGridView1.ColumnCount; col++)
             {
                 if (dataGridView1[col, dataGridView1.RowCount-1].Style.BackColor == Color.White &&
-                    dataGridView1[col,dataGridView1.RowCount-2].Style.BackColor == Color.White)
+                    dataGridView1[col,dataGridView1.RowCount-3].Style.BackColor == Color.White)
                     emptyColumn++;
 
                 for(int row = dataGridView1.RowCount - 1; row >= 0; row--)
@@ -132,7 +132,8 @@ namespace HomeWork
             if(emptyColumn == dataGridView1.ColumnCount)
             {
                 timer1.Enabled = false;
-                MessageBox.Show($"Поздравляем, вы победили за {gameStep} шагов, ваши очки {score}");
+                //MessageBox.Show($"Поздравляем, вы победили за {gameStep} шагов, ваши очки {score}");
+                MessageBox.Show($"Поздравляем, вы победили за {gameStep} шагов, ваши очки {score}", "Победа!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
